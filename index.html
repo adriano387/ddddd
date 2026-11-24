@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Um presente pra Evelly 🎁</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- TELA DO PRESENTE -->
+<div id="telaPresente" class="card centro">
+  <h1>Para: Evelly 💗</h1>
+  <p>De: alguém que pensa muito em você...</p>
+  <div id="presente">🎁</div>
+  <p><b>Clica no presente pra abrir</b></p>
+  <p style="font-size:13px">Tem algo rosa te esperando dentro...</p>
+</div>
+
+<!-- CONTEÚDO DEPOIS DE ABRIR -->
+<div id="conteudo" class="hidden">
+
+  <h1>Pra você, Evelly 💗</h1>
+  <p>Tipo o Patrick Jane em O Mentalista, eu desvendei o mistério:<br><b>você é a pessoa mais especial.</b></p>
+
+  <!-- FOTOS -->
+  <div class="card">
+    <h2>📸 Nós 💗</h2>
+    <img src="fotos/foto1.jpg" class="foto">
+    <img src="fotos/foto2.jpg" class="foto">
+    <img src="fotos/foto3.jpg" class="foto">
+    <img src="fotos/foto4.jpg" class="foto">
+    <p>Olha a gente, coisa mais linda 💗</p>
+  </div>
+
+  <!-- CARTINHA -->
+  <div class="card">
+    <h2>💌 Cartinha pra Evelly</h2>
+    <p>Oi, Evelly...</p>
+    <p>Eu fiz esse site só pra você, como um presente. Você é minha parte favorita do dia, e conversar com você deixa tudo mais rosa, mais leve e mais feliz.</p>
+    <p>A gente já é quase namorados, né? Então considera isso aqui um pedacinho do que eu sinto por você.</p>
+    <p><b>Você é muito especial pra mim, Evelly. 💗</b></p>
+  </div>
+
+  <!-- MOTIVOS -->
+  <div class="card">
+    <h2>🌸 10 motivos pra você sorrir</h2>
+    <p>Clica em cada um, Evelly:</p>
+    <div id="motivos"></div>
+  </div>
+
+  <!-- JOGUINHO DA COBRINHA -->
+  <div class="card" id="cardJogo">
+    <h2>🐍 Cobrinha do Amor</h2>
+    <p>Ajuda a cobrinha a comer todos os corações!</p>
+    <p>Corações: <b id="placar">0</b></p>
+    <button onclick="comecarJogo()">▶ Jogar</button>
+    <button onclick="telaCheia()">⛶ Tela Cheia</button>
+    <canvas id="jogo" width="300" height="300"></canvas>
+    <p id="msgJogo">Aperta Jogar, Evelly!</p>
+    <p style="font-size:13px">Desliza o dedo pra mover a cobrinha 💗</p>
+    <button id="btnSair" class="hidden" onclick="sairTelaCheia()">✖ Sair da Tela Cheia</button>
+  </div>
+
+  <div class="card">
+    <p>Feito com carinho só pra você, Evelly 💗<br>Volta aqui sempre que quiser sorrir.</p>
+  </div>
+
+</div>
+
+<!-- POP-UP DO MOTIVO -->
+<div id="popup" class="popup hidden">
+  <div class="popup-caixa">
+    <h2>💗 Pra você, Evelly</h2>
+    <p id="motivoTexto"></p>
+    <button onclick="fecharPopup()">Fechar 💗</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
