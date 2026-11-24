@@ -5,8 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Um presente pra Evelly 🎁</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  /* ESTILO DA SENHA E DO WHATSAPP */
+  #tela-senha {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background:#ff5e8a; z-index:9999; overflow:hidden;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:20px; box-sizing:border-box;
+  }
+  #tela-senha h1 { color:white; font-size:32px; margin-bottom:5px; position:relative; z-index:2; }
+  #tela-senha p { color:white; font-size:18px; position:relative; z-index:2; }
+  #campo-senha {
+    padding:15px; font-size:20px; border:none; border-radius:20px;
+    text-align:center; width:220px; outline:none; letter-spacing:5px;
+    position:relative; z-index:2;
+  }
+  #btn-entrar {
+    margin-top:15px; padding:12px 30px; font-size:18px;
+    background:white; color:#ff5e8a; border:none; border-radius:20px;
+    font-weight:bold; cursor:pointer; position:relative; z-index:2;
+  }
+  #erro-senha { color:white; display:none; margin-top:10px; font-weight:bold; position:relative; z-index:2; }
+  .btn-whats {
+    display:inline-block; margin-top:15px; padding:15px 25px;
+    background:#25D366; color:white; text-decoration:none;
+    border-radius:30px; font-size:18px; font-weight:bold;
+    box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  }
+  /* CORAÇÕES DESCENDO */
+  .coracao-senha {
+    position:absolute; top:-30px; font-size:22px;
+    animation: cair linear infinite;
+    pointer-events:none; z-index:1; opacity:0.9;
+  }
+  @keyframes cair {
+    to { transform: translateY(110vh) rotate(360deg); }
+  }
+</style>
 </head>
 <body>
+
+<!-- ===== TELA DE SENHA COM CORAÇÕES ===== -->
+<div id="tela-senha">
+  <!-- Os corações vão ser criados aqui pelo JavaScript -->
+  <div id="chuva-coracoes"></div>
+
+  <h1>💖 Só pra você 💖</h1>
+  <p>Oi Evelly, digita nossa senha pra entrar:</p>
+  <input id="campo-senha" type="password" placeholder="••••" inputmode="numeric">
+  <button id="btn-entrar" onclick="verificarSenha()">Entrar ❤️</button>
+  <p id="erro-senha">Senha errada, tenta de novo amor 😘</p>
+  <p style="font-size:13px; opacity:0.9;">Dica: é o seu dia que é nosso dia especial 💗</p>
+</div>
 
 <!-- TELA DO PRESENTE -->
 <div id="telaPresente" class="card centro">
@@ -44,7 +94,7 @@
   <!-- MOTIVOS -->
   <div class="card">
     <h2>🌸 10 motivos pra você sorrir</h2>
-    <p>Clica em cada um, Evelly:</p>
+    <p>Clica em cada um, Evelly🌸:</p>
     <div id="motivos"></div>
   </div>
 
@@ -65,6 +115,14 @@
     <p>Feito com carinho só pra você, Evelly 💗<br>Volta aqui sempre que quiser sorrir.</p>
   </div>
 
+  <!-- BOTÃO WHATSAPP NO FINAL -->
+  <div class="card" style="background:#eafff0; border:2px solid #25D366;">
+    <h2>💬 Gostou, Evelly?</h2>
+    <p>Se você sorriu vendo isso, me conta agora...<br>Eu tô doido pra saber o que você achou! 💗</p>
+    <a class="btn-whats" href="https://wa.me/5585921749278?text=Oi%20amor!%20Vi%20o%20site%20que%20voc%C3%AA%20fez%20pra%20mim%20e%20amei%20%E2%9D%A4%EF%B8%8F%20Voc%C3%AA%20%C3%A9%20o%20melhor!" target="_blank">Me mandar mensagem no WhatsApp 💬</a>
+    <p style="font-size:13px; margin-top:10px;">Clica aqui que já abre nossa conversa 😉</p>
+  </div>
+
 </div>
 
 <!-- POP-UP DO MOTIVO -->
@@ -75,6 +133,38 @@
     <button onclick="fecharPopup()">Fechar 💗</button>
   </div>
 </div>
+
+<script>
+// ===== CORAÇÕES CAINDO NA TELA DA SENHA =====
+function criarCoracoesSenha() {
+  let container = document.getElementById("chuva-coracoes");
+  let emojis = ["❤️","💗","💖","💕","🌸"];
+  for(let i=0; i<25; i++){
+    let c = document.createElement("div");
+    c.className = "coracao-senha";
+    c.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+    c.style.left = Math.random()*100 + "%";
+    c.style.fontSize = (Math.random()*15+18) + "px";
+    c.style.animationDuration = (Math.random()*3+2.5) + "s";
+    c.style.animationDelay = (Math.random()*3) + "s";
+    container.appendChild(c);
+  }
+}
+criarCoracoesSenha();
+
+function verificarSenha() {
+  const SENHA = "2809";
+  let digitada = document.getElementById("campo-senha").value;
+  if (digitada === SENHA) {
+    document.getElementById("tela-senha").style.display = "none";
+  } else {
+    document.getElementById("erro-senha").style.display = "block";
+  }
+}
+document.getElementById("campo-senha").addEventListener("keypress", function(e){
+  if(e.key === "Enter"){ verificarSenha(); }
+});
+</script>
 
 <script src="script.js"></script>
 </body>
