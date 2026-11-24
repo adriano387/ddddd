@@ -6,7 +6,6 @@
 <title>Um presente pra Evelly 🎁</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* ESTILO DA SENHA E DO WHATSAPP */
   #tela-senha {
     position: fixed; top:0; left:0; width:100%; height:100%;
     background:#ff5e8a; z-index:9999; overflow:hidden;
@@ -32,30 +31,39 @@
     border-radius:30px; font-size:18px; font-weight:bold;
     box-shadow:0 4px 10px rgba(0,0,0,0.2);
   }
-  /* CORAÇÕES DESCENDO */
+  /* CORAÇÕES E FRASES CAINDO */
   .coracao-senha {
     position:absolute; top:-30px; font-size:22px;
     animation: cair linear infinite;
     pointer-events:none; z-index:1; opacity:0.9;
   }
-  @keyframes cair {
-    to { transform: translateY(110vh) rotate(360deg); }
+  .frase-caindo {
+    position:absolute; top:-40px;
+    color:white; font-weight:bold; font-size:19px;
+    background:rgba(255,255,255,0.25);
+    padding:5px 12px; border-radius:20px;
+    animation: cair linear infinite;
+    pointer-events:none; z-index:1; white-space:nowrap;
+    text-shadow:0 2px 5px rgba(0,0,0,0.2);
   }
+  @keyframes cair { to { transform: translateY(110vh) rotate(15deg); } }
+  .player-spotify { border-radius:12px; overflow:hidden; margin-top:10px; }
+  .player-spotify iframe { width:100%; height:152px; border:0; }
 </style>
 </head>
 <body>
 
-<!-- ===== TELA DE SENHA COM CORAÇÕES ===== -->
+<!-- TELA DE SENHA COM CORAÇÕES + FRASES -->
 <div id="tela-senha">
-  <!-- Os corações vão ser criados aqui pelo JavaScript -->
   <div id="chuva-coracoes"></div>
+  <div id="chuva-frases"></div>
 
   <h1>💖 Só pra você 💖</h1>
   <p>Oi Evelly, digita nossa senha pra entrar:</p>
   <input id="campo-senha" type="password" placeholder="••••" inputmode="numeric">
   <button id="btn-entrar" onclick="verificarSenha()">Entrar ❤️</button>
   <p id="erro-senha">Senha errada, tenta de novo amor 😘</p>
-  <p style="font-size:13px; opacity:0.9;">Dica: é o seu dia que é nosso dia especial 💗</p>
+  <p style="font-size:13px; opacity:0.9;">Dica: é o nosso dia especial 💗</p>
 </div>
 
 <!-- TELA DO PRESENTE -->
@@ -69,11 +77,19 @@
 
 <!-- CONTEÚDO DEPOIS DE ABRIR -->
 <div id="conteudo" class="hidden">
-
   <h1>Pra você, Evelly 💗</h1>
   <p>Tipo o Patrick Jane em O Mentalista, eu desvendei o mistério:<br><b>você é a pessoa mais especial.</b></p>
 
-  <!-- FOTOS -->
+  <!-- MUSICA DO SPOTIFY -->
+  <div class="card" style="background:#1DB954; color:white;">
+    <h2 style="color:white;">🎵 Nossa música</h2>
+    <p style="color:white;">Aperta o play e ouve comigo, Evelly 💗</p>
+    <p style="color:white; font-size:14px;"></p>
+    <div class="player-spotify">
+      <iframe src="https://open.spotify.com/embed/track/5lkO3AqD8qiTAj1ZYA1IpX?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+  </div>
+
   <div class="card">
   <img src="foto1.png" class="foto">
 <img src="foto2.png" class="foto">
@@ -82,7 +98,6 @@
     <p>Olha a gente, coisa mais linda 💗</p>
   </div>
 
-  <!-- CARTINHA -->
   <div class="card">
     <h2>💌 Cartinha pra Evelly</h2>
     <p>Oi, Evelly...</p>
@@ -91,14 +106,12 @@
     <p><b>Você é muito especial pra mim, Evelly. 💗</b></p>
   </div>
 
-  <!-- MOTIVOS -->
   <div class="card">
     <h2>🌸 10 motivos pra você sorrir</h2>
     <p>Clica em cada um, Evelly🌸:</p>
     <div id="motivos"></div>
   </div>
 
-  <!-- JOGUINHO DA COBRINHA -->
   <div class="card" id="cardJogo">
     <h2>🐍 Cobrinha do Amor</h2>
     <p>Ajuda a cobrinha a comer todos os corações!</p>
@@ -115,17 +128,14 @@
     <p>Feito com carinho só pra você, Evelly 💗<br>Volta aqui sempre que quiser sorrir.</p>
   </div>
 
-  <!-- BOTÃO WHATSAPP NO FINAL -->
   <div class="card" style="background:#eafff0; border:2px solid #25D366;">
     <h2>💬 Gostou, Evelly?</h2>
     <p>Se você sorriu vendo isso, me conta agora...<br>Eu tô doido pra saber o que você achou! 💗</p>
     <a class="btn-whats" href="https://wa.me/5585921749278?text=Oi%20amor!%20Vi%20o%20site%20que%20voc%C3%AA%20fez%20pra%20mim%20e%20amei%20%E2%9D%A4%EF%B8%8F%20Voc%C3%AA%20%C3%A9%20o%20melhor!" target="_blank">Me mandar mensagem no WhatsApp 💬</a>
     <p style="font-size:13px; margin-top:10px;">Clica aqui que já abre nossa conversa 😉</p>
   </div>
-
 </div>
 
-<!-- POP-UP DO MOTIVO -->
 <div id="popup" class="popup hidden">
   <div class="popup-caixa">
     <h2>💗 Pra você, Evelly</h2>
@@ -135,11 +145,11 @@
 </div>
 
 <script>
-// ===== CORAÇÕES CAINDO NA TELA DA SENHA =====
+// CORAÇÕES CAINDO
 function criarCoracoesSenha() {
   let container = document.getElementById("chuva-coracoes");
   let emojis = ["❤️","💗","💖","💕","🌸"];
-  for(let i=0; i<25; i++){
+  for(let i=0; i<20; i++){
     let c = document.createElement("div");
     c.className = "coracao-senha";
     c.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
@@ -151,6 +161,22 @@ function criarCoracoesSenha() {
   }
 }
 criarCoracoesSenha();
+
+// FRASES CAINDO - TE AMO / PRINCESA
+function criarFrasesCaindo() {
+  let container = document.getElementById("chuva-frases");
+  let frases = ["te amo ❤️", "princesa 👑", "te amo 💗", "princesa 💖", "te amo 💕", "minha princesa ✨"];
+  for(let i=0; i<12; i++){
+    let f = document.createElement("div");
+    f.className = "frase-caindo";
+    f.innerHTML = frases[i % frases.length];
+    f.style.left = Math.random()*75 + "%";
+    f.style.animationDuration = (Math.random()*3+4) + "s";
+    f.style.animationDelay = (Math.random()*4) + "s";
+    container.appendChild(f);
+  }
+}
+criarFrasesCaindo();
 
 function verificarSenha() {
   const SENHA = "2809";
