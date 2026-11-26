@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<adriano charset="UTF-8">
+<Adriano name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Um presente pra Evelly 🎁</title>
 <link rel="stylesheet" href="style.css">
 <style>
@@ -31,7 +31,6 @@
     border-radius:30px; font-size:18px; font-weight:bold;
     box-shadow:0 4px 10px rgba(0,0,0,0.2);
   }
-  /* CORAÇÕES E FRASES CAINDO */
   .coracao-senha {
     position:absolute; top:-30px; font-size:22px;
     animation: cair linear infinite;
@@ -49,6 +48,10 @@
   @keyframes cair { to { transform: translateY(110vh) rotate(15deg); } }
   .player-spotify { border-radius:12px; overflow:hidden; margin-top:10px; }
   .player-spotify iframe { width:100%; height:152px; border:0; }
+  /* MENU + BICHINHO */
+  .menu-topo { background:white; padding:12px; border-radius:20px; max-width:480px; margin:0 auto 16px; display:flex; justify-content:center; gap:8px; }
+  .menu-topo button { background:#ff4d8d; color:white; border:none; padding:12px 20px; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; }
+  #input-senha-bichinho { padding:12px; border-radius:20px; border:2px solid #ffb3cd; width:80%; text-align:center; font-size:18px; }
 </style>
 </head>
 <body>
@@ -57,7 +60,6 @@
 <div id="tela-senha">
   <div id="chuva-coracoes"></div>
   <div id="chuva-frases"></div>
-
   <h1>💖 Só pra você 💖</h1>
   <p>Oi Evelly, digita nossa senha pra entrar:</p>
   <input id="campo-senha" type="password" placeholder="••••" inputmode="numeric">
@@ -77,63 +79,102 @@
 
 <!-- CONTEÚDO DEPOIS DE ABRIR -->
 <div id="conteudo" class="hidden">
-  <h1>Pra você, Evelly 💗</h1>
-  <p>Tipo o Patrick Jane em O Mentalista, eu desvendei o mistério:<br><b>você é a pessoa mais especial.</b></p>
 
-  <!-- MUSICA DO SPOTIFY -->
-  <div class="card" style="background:#1DB954; color:white;">
-    <h2 style="color:white;">🎵 Nossa música</h2>
-    <p style="color:white;">Aperta o play e ouve comigo, Evelly 💗</p>
-    <p style="color:white; font-size:14px;"></p>
-    <div class="player-spotify">
-      <iframe src="https://open.spotify.com/embed/track/5lkO3AqD8qiTAj1ZYA1IpX?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <!-- MENU NOVO -->
+  <div class="menu-topo">
+    <button onclick="mostrarTela('inicio')">🏠 Início</button>
+    <button onclick="pedirSenhaBichinho()">💗 Bichinho</button>
+  </div>
+
+  <!-- TELA INICIO = TUDO QUE JÁ TINHA -->
+  <div id="telaInicio">
+    <h1>Pra você, Evelly 💗</h1>
+    <p>Tipo o Patrick Jane em O Mentalista, eu desvendei o mistério:<br><b>você é a pessoa mais especial.</b></p>
+
+    <div class="card" style="background:#1DB954; color:white;">
+      <h2 style="color:white;">🎵 Nossa música</h2>
+      <p style="color:white;">Aperta o play e ouve comigo, Evelly 💗</p>
+      <div class="player-spotify">
+        <iframe src="https://open.spotify.com/embed/track/5lkO3AqD8qiTAj1ZYA1IpX?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="foto1.png" class="foto">
+      <img src="foto2.png" class="foto">
+      <img src="foto3.png" class="foto">
+      <img src="foto4.png" class="foto">
+      <p>Olha a gente, coisa mais linda 💗</p>
+    </div>
+
+    <div class="card">
+      <h2>💌 Cartinha pra Evelly</h2>
+      <p>Oi, Evelly...</p>
+      <p>Eu fiz esse site só pra você, como um presente. Você é minha parte favorita do dia, e conversar com você deixa tudo mais rosa, mais leve e mais feliz.</p>
+      <p>A gente já é quase namorados, né? Então considera isso aqui um pedacinho do que eu sinto por você.</p>
+      <p><b>Você é muito especial pra mim, Evelly. 💗</b></p>
+    </div>
+
+    <div class="card">
+      <h2>🌸 10 motivos pra você sorrir</h2>
+      <p>Clica em cada um, Evelly🌸:</p>
+      <div id="motivos"></div>
+    </div>
+
+    <div class="card" id="cardJogo">
+      <h2>🐍 Cobrinha do Amor</h2>
+      <p>Ajuda a cobrinha a comer todos os corações!</p>
+      <p>Corações: <b id="placar">0</b></p>
+      <button onclick="comecarJogo()">▶ Jogar</button>
+      <button onclick="telaCheia()">⛶ Tela Cheia</button>
+      <canvas id="jogo" width="300" height="300"></canvas>
+      <p id="msgJogo">Aperta Jogar, Evelly!</p>
+      <p style="font-size:13px">Desliza o dedo pra mover a cobrinha 💗</p>
+      <button id="btnSair" class="hidden" onclick="sairTelaCheia()">✖ Sair da Tela Cheia</button>
+    </div>
+
+    <div class="card">
+      <p>Feito com carinho só pra você, Evelly 💗<br>Volta aqui sempre que quiser sorrir.</p>
+    </div>
+
+    <div class="card" style="background:#eafff0; border:2px solid #25D366;">
+      <h2>💬 Gostou, Evelly?</h2>
+      <p>Se você sorriu vendo isso, me conta agora...<br>Eu tô doido pra saber o que você achou! 💗</p>
+      <a class="btn-whats" href="https://wa.me/5585921749278?text=Oi%20amor!%20Vi%20o%20site%20que%20voc%C3%AA%20fez%20pra%20mim%20e%20amei%20%E2%9D%A4%EF%B8%8F%20Voc%C3%AA%20%C3%A9%20o%20melhor!" target="_blank">Me mandar mensagem no WhatsApp 💬</a>
+      <p style="font-size:13px; margin-top:10px;">Clica aqui que já abre nossa conversa 😉</p>
     </div>
   </div>
 
-  <div class="card">
-  <img src="foto1.png" class="foto">
-<img src="foto2.png" class="foto">
-<img src="foto3.png" class="foto">
-<img src="foto4.png" class="foto">
-    <p>Olha a gente, coisa mais linda 💗</p>
+  <!-- TELA BICHINHO -->
+  <div id="telaBichinho" class="hidden">
+    <div class="card">
+      <h2>💗 Nosso Bichinho</h2>
+      <p>Ele é nosso, Evelly, cuida dele!</p>
+      <div id="bichinho" style="font-size:90px;">💗</div>
+      <p id="falaBichinho" style="font-weight:bold; min-height:30px;">Oi! Eu sou o seu coraçãozinho!</p>
+      <p>❤️ Amor: <b id="amor">50</b></p>
+      <p>🍔 Fome: <b id="fome">50</b></p>
+      <p>😊 Felicidade: <b id="feliz">50</b></p>
+      <button onclick="cuidar('comida')">🍔 Comida</button>
+      <button onclick="cuidar('carinho')">💗 Carinho</button>
+      <button onclick="cuidar('brincar')">🎮 Brincar</button>
+      <p id="nivel">Nível 1 - Bebê</p>
+      <button onclick="mostrarTela('inicio')" style="background:#eee; color:#333;">⬅ Voltar</button>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>💌 Cartinha pra Evelly</h2>
-    <p>Oi, Evelly...</p>
-    <p>Eu fiz esse site só pra você, como um presente. Você é minha parte favorita do dia, e conversar com você deixa tudo mais rosa, mais leve e mais feliz.</p>
-    <p>A gente já é quase namorados, né? Então considera isso aqui um pedacinho do que eu sinto por você.</p>
-    <p><b>Você é muito especial pra mim, Evelly. 💗</b></p>
+  <!-- TELA SENHA DO BICHINHO -->
+  <div id="caixaSenhaBichinho" class="hidden">
+    <div class="card">
+      <h2>🔒 Área secreta do Bichinho</h2>
+      <p>Qual é a senha do nosso bichinho?</p><br>
+      <input id="input-senha-bichinho" type="password" placeholder="Digite a senha"><br><br>
+      <button onclick="verificarSenhaBichinho()">Entrar 💗</button>
+      <p id="erro-senha-bichinho" style="color:red;"></p>
+      <button onclick="mostrarTela('inicio')" style="background:#eee; color:#333;">⬅ Voltar</button>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>🌸 10 motivos pra você sorrir</h2>
-    <p>Clica em cada um, Evelly🌸:</p>
-    <div id="motivos"></div>
-  </div>
-
-  <div class="card" id="cardJogo">
-    <h2>🐍 Cobrinha do Amor</h2>
-    <p>Ajuda a cobrinha a comer todos os corações!</p>
-    <p>Corações: <b id="placar">0</b></p>
-    <button onclick="comecarJogo()">▶ Jogar</button>
-    <button onclick="telaCheia()">⛶ Tela Cheia</button>
-    <canvas id="jogo" width="300" height="300"></canvas>
-    <p id="msgJogo">Aperta Jogar, Evelly!</p>
-    <p style="font-size:13px">Desliza o dedo pra mover a cobrinha 💗</p>
-    <button id="btnSair" class="hidden" onclick="sairTelaCheia()">✖ Sair da Tela Cheia</button>
-  </div>
-
-  <div class="card">
-    <p>Feito com carinho só pra você, Evelly 💗<br>Volta aqui sempre que quiser sorrir.</p>
-  </div>
-
-  <div class="card" style="background:#eafff0; border:2px solid #25D366;">
-    <h2>💬 Gostou, Evelly?</h2>
-    <p>Se você sorriu vendo isso, me conta agora...<br>Eu tô doido pra saber o que você achou! 💗</p>
-    <a class="btn-whats" href="https://wa.me/5585921749278?text=Oi%20amor!%20Vi%20o%20site%20que%20voc%C3%AA%20fez%20pra%20mim%20e%20amei%20%E2%9D%A4%EF%B8%8F%20Voc%C3%AA%20%C3%A9%20o%20melhor!" target="_blank">Me mandar mensagem no WhatsApp 💬</a>
-    <p style="font-size:13px; margin-top:10px;">Clica aqui que já abre nossa conversa 😉</p>
-  </div>
 </div>
 
 <div id="popup" class="popup hidden">
@@ -145,7 +186,6 @@
 </div>
 
 <script>
-// CORAÇÕES CAINDO
 function criarCoracoesSenha() {
   let container = document.getElementById("chuva-coracoes");
   let emojis = ["❤️","💗","💖","💕","🌸"];
@@ -162,7 +202,6 @@ function criarCoracoesSenha() {
 }
 criarCoracoesSenha();
 
-// FRASES CAINDO - TE AMO / PRINCESA
 function criarFrasesCaindo() {
   let container = document.getElementById("chuva-frases");
   let frases = ["te amo ❤️", "princesa 👑", "te amo 💗", "princesa 💖", "te amo 💕", "minha princesa ✨"];
@@ -190,8 +229,204 @@ function verificarSenha() {
 document.getElementById("campo-senha").addEventListener("keypress", function(e){
   if(e.key === "Enter"){ verificarSenha(); }
 });
+
+// MENU + SENHA DO BICHINHO
+function mostrarTela(tela){
+  document.getElementById('telaInicio').classList.add('hidden');
+  document.getElementById('telaBichinho').classList.add('hidden');
+  document.getElementById('caixaSenhaBichinho').classList.add('hidden');
+  if(tela=='inicio') document.getElementById('telaInicio').classList.remove('hidden');
+  if(tela=='bichinho') document.getElementById('telaBichinho').classList.remove('hidden');
+  if(tela=='senhaBichinho') document.getElementById('caixaSenhaBichinho').classList.remove('hidden');
+}
+function pedirSenhaBichinho(){ mostrarTela('senhaBichinho'); }
+function verificarSenhaBichinho(){
+  let senha = document.getElementById('input-senha-bichinho').value;
+  if(senha=="280910"){ mostrarTela('bichinho'); document.getElementById('erro-senha-bichinho').innerText=""; }
+  else{ document.getElementById('erro-senha-bichinho').innerText="Senha errada! Tenta de novo 💔"; }
+}
+
+// BICHINHO
+let amor=50, fome=50, feliz=50, nivel=1;
+function cuidar(tipo){
+  let fala=document.getElementById('falaBichinho');
+  let bicho=document.getElementById('bichinho');
+  if(tipo=='comida'){fome=Math.min(100,fome+20); amor=Math.min(100,amor+5); fala.innerText="Hummm, obrigado! Tava com fominha!";}
+  if(tipo=='carinho'){amor=Math.min(100,amor+20); feliz=Math.min(100,feliz+10); fala.innerText="Awnn, eu amo seu carinho!";}
+  if(tipo=='brincar'){feliz=Math.min(100,feliz+20); fome=Math.max(0,fome-10); fala.innerText="Yeeey, brincar é muito legal!";}
+  if(amor>80 && feliz>80 && nivel==1){nivel=2; bicho.innerText="💖"; document.getElementById('nivel').innerText="Nível 2 - Cresceu!"; fala.innerText="Eu cresci! É porque você cuida tão bem de mim!";}
+  if(amor>=100 && feliz>=100 && nivel==2){nivel=3; bicho.innerText="🥰"; document.getElementById('nivel').innerText="Nível 3 - MÁXIMO!"; fala.innerText="Eu sou todo seu pra sempre!";}
+  document.getElementById('amor').innerText=amor;
+  document.getElementById('fome').innerText=fome;
+  document.getElementById('feliz').innerText=feliz;
+}
+setInterval(()=>{
+  fome=Math.max(0,fome-2); feliz=Math.max(0,feliz-1);
+  document.getElementById('fome').innerText=fome;
+  document.getElementById('feliz').innerText=feliz;
+  if(fome<20){document.getElementById('falaBichinho').innerText="Tô com fominha... me dá comida?"; document.getElementById('bichinho').innerText="🥺";}
+},5000);
 </script>
 
 <script src="script.js"></script>
+<!-- BICHIHNO COM FOME - ADR -->
+<div id="bichinho-box" style="text-align:center; background:#fff0f5; border-radius:20px; padding:20px; margin:20px; font-family:Arial;">
+  <h2 id="bichinho-nome">Seu Bichinho 💗</h2>
+  <div id="bichinho-emoji" style="font-size:80px;">😊</div>
+  <p id="bichinho-fala" style="font-size:18px; font-weight:bold;"></p>
+  <p id="bichinho-info"></p>
+  <button onclick="alimentarBichinho()" style="background:#ff5c8a; color:white; border:none; padding:12px 20px; border-radius:20px; font-size:16px;">🍎 Alimentar ele</button>
+  <p style="font-size:12px; color:#888;">Cuida dele todo dia pra ele subir de nível!</p>
+</div>
+
+<script>
+let dados = JSON.parse(localStorage.getItem('bichinho_')) || { nivel: 1, diasSeguidos: 1, ultimaVisita: null, alimentadoHoje: false };
+let hoje = new Date().toDateString();
+let ultima = dados.ultimaVisita ? new Date(dados.ultimaVisita) : null;
+let diffDias = 0;
+if (ultima) {
+  diffDias = Math.floor((new Date(hoje) - ultima) / (1000*60*60*24));
+}
+
+if (dados.ultimaVisita !== hoje) {
+  if (diffDias === 1) {
+    dados.diasSeguidos += 1;
+  } else if (diffDias > 1) {
+    dados.diasSeguidos = 1;
+  }
+  dados.alimentadoHoje = false;
+  dados.ultimaVisita = hoje;
+  localStorage.setItem('bichinho_', JSON.stringify(dados));
+}
+
+function atualizarBichinho() {
+  let emoji = document.getElementById('bichinho-emoji');
+  let fala = document.getElementById('bichinho-fala');
+  let info = document.getElementById('bichinho-info');
+
+  let roupa = '';
+  if (dados.nivel >= 5) roupa = ' 👑';
+  else if (dados.nivel >= 3) roupa = ' 🎀';
+
+  if (!dados.alimentadoHoje && diffDias >= 2) {
+    emoji.textContent = '🥺';
+    fala.textContent = 'Você sumiu... eu senti sua falta';
+  } else if (!dados.alimentadoHoje && diffDias === 1) {
+    emoji.textContent = '🥺';
+    fala.textContent = 'Finalmente você veio... eu tava te esperando com fominha';
+  } else if (!dados.alimentadoHoje) {
+    emoji.textContent = '😋';
+    fala.textContent = 'Oii Tô com fominha, me alimenta?';
+  } else {
+    emoji.textContent = '😍' + roupa;
+    fala.textContent = 'Obrigado! Agora tô feliz e cheio!';
+  }
+
+  info.textContent = 'Nível: ' + dados.nivel + ' | Dias cuidando: ' + dados.diasSeguidos;
+}
+
+function alimentarBichinho() {
+  if (dados.alimentadoHoje) {
+    alert('Ele já tá cheio! Volta amanhã pra cuidar de novo 💗');
+    return;
+  }
+  dados.alimentadoHoje = true;
+  dados.nivel += 1;
+  localStorage.setItem('bichinho_adr', JSON.stringify(dados));
+  diffDias = 0;
+  atualizarBichinho();
+  alert('Você alimentou ele! Ele subiu para o nível ' + dados.nivel + ' 💗');
+}
+
+atualizarBichinho();
+</script>
+<!-- FIM BICHIHNO -->
+ <!-- MENU + DIARIO DA PRINCESINHA COM DATA -->
+<div style="text-align:center; margin:20px;">
+  <button onclick="abrirDiario()" style="background:#ff8fab; color:white; border:none; padding:12px 22px; border-radius:20px; font-size:16px; font-weight:bold;">📖 Diário da Princesinha</button>
+</div>
+
+<div id="diario-senha" style="display:none; text-align:center; background:#fff0f5; border-radius:20px; padding:20px; margin:20px; font-family:Arial;">
+  <h2>🔒 Diário da Princesinha</h2>
+  <p>Esse é só seu, princesinha 💗<br>Coloca sua senhinha:</p>
+  <input id="input-senha-diario" type="password" placeholder="Senha" style="padding:10px; border-radius:12px; border:1px solid #ffb3c6; text-align:center; font-size:16px;">
+  <br><br>
+  <button onclick="verificarSenhaDiario()" style="background:#ff5c8a; color:white; border:none; padding:10px 20px; border-radius:20px; font-size:15px;">Entrar 💗</button>
+  <p id="erro-senha-diario" style="color:red; display:none;">Senha errada, tenta de novo 🥺</p>
+</div>
+
+<div id="diario-area" style="display:none; background:#fff0f5; border-radius:20px; padding:20px; margin:20px; font-family:Arial;">
+  <h2 style="text-align:center;">📖 Diário da Princesinha 💗</h2>
+  <p style="text-align:center;">Escolhe o dia e escreve como foi, só você vai ver.</p>
+  
+  <label style="font-weight:bold; color:#ff5c8a;">Que dia é esse?</label><br>
+  <input id="data-diario" type="date" style="padding:10px; border-radius:12px; border:1px solid #ffb3c6; font-size:15px; width:100%; margin-top:5px;">
+  <br><br>
+  <textarea id="texto-diario" placeholder="Nesse dia eu..." style="width:100%; height:120px; border-radius:15px; border:1px solid #ffb3c6; padding:12px; font-size:15px;"></textarea>
+  <br><br>
+  <div style="text-align:center;">
+    <button onclick="salvarDiario()" style="background:#ff5c8a; color:white; border:none; padding:12px 22px; border-radius:20px; font-size:15px;">Salvar meu dia 💗</button>
+  </div>
+  <h3 style="margin-top:20px;">Meus dias escritos:</h3>
+  <div id="lista-diario"></div>
+</div>
+
+<script>
+function abrirDiario() {
+  document.getElementById('diario-senha').style.display = 'block';
+  document.getElementById('diario-area').style.display = 'none';
+  // Já deixa a data de hoje selecionada
+  let hoje = new Date().toISOString().split('T')[0];
+  document.getElementById('data-diario').value = hoje;
+  document.getElementById('diario-senha').scrollIntoView({behavior:'smooth'});
+}
+
+function verificarSenhaDiario() {
+  let senha = document.getElementById('input-senha-diario').value;
+  if (senha === '2809') {
+    document.getElementById('diario-senha').style.display = 'none';
+    document.getElementById('diario-area').style.display = 'block';
+    mostrarDiario();
+  } else {
+    document.getElementById('erro-senha-diario').style.display = 'block';
+  }
+}
+
+function salvarDiario() {
+  let texto = document.getElementById('texto-diario').value.trim();
+  let dataEscolhida = document.getElementById('data-diario').value;
+  if (!texto) { alert('Escreve alguma coisa primeiro 💗'); return; }
+  if (!dataEscolhida) { alert('Escolhe a data primeiro 💗'); return; }
+  
+  // Converte 2026-11-26 para 26/11/2026
+  let partes = dataEscolhida.split('-');
+  let dataFormatada = partes[2] + '/' + partes[1] + '/' + partes[0];
+  let hora = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+  
+  let entradas = JSON.parse(localStorage.getItem('diario_princesinha')) || [];
+  entradas.unshift({ data: dataFormatada + ' às ' + hora, texto: texto, dataOrdem: dataEscolhida });
+  // Deixa em ordem da data mais recente pra mais antiga
+  entradas.sort((a,b) => b.dataOrdem.localeCompare(a.dataOrdem));
+  localStorage.setItem('diario_princesinha', JSON.stringify(entradas));
+  document.getElementById('texto-diario').value = '';
+  mostrarDiario();
+  alert('Salvo no dia ' + dataFormatada + ' 💗');
+}
+
+function mostrarDiario() {
+  let entradas = JSON.parse(localStorage.getItem('diario_princesinha')) || [];
+  let lista = document.getElementById('lista-diario');
+  if (entradas.length === 0) {
+    lista.innerHTML = '<p style="color:#888;">Ainda não tem nada aqui... escreve seu primeiro dia 💗</p>';
+    return;
+  }
+  lista.innerHTML = entradas.map(e => 
+    '<div style="background:white; padding:12px; border-radius:12px; margin-bottom:10px;">' +
+    '<b style="color:#ff5c8a;">📅 ' + e.data + '</b><br>' + e.texto.replace(/</g, '&lt;') +
+    '</div>'
+  ).join('');
+}
+</script>
+<!-- FIM DIARIO COM DATA -->
 </body>
 </html>
